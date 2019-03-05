@@ -9,6 +9,7 @@ class PostList extends Component {
         this.state = {
             posts: []
         };
+        this.createMarkup = this.createMarkup.bind();
     }
 
     componentDidMount() {
@@ -19,6 +20,13 @@ class PostList extends Component {
             });
         });
     }
+
+    createMarkup(html) {
+        return {
+            __html: html
+        };
+    }
+
     render() {
         const baseURL = "https://damienpierre.com";
         return (
@@ -75,6 +83,11 @@ class PostList extends Component {
                                     }}
                                 />
                             </div>
+                            <p
+                                dangerouslySetInnerHTML={this.createMarkup(
+                                    post.acf.project_task
+                                )}
+                            />
                         </div>
                     </Link>
                 ))}
