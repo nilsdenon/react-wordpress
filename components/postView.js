@@ -5,7 +5,7 @@ class PostView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            posts: {}
+            post: {}
         };
         this.createMarkup = this.createMarkup.bind();
     }
@@ -14,9 +14,9 @@ class PostView extends Component {
         const slug = this.props.match.params.slug;
         const jsonWorks = `https://damienpierre.com/wp-json/wp/v2/works?slug=${slug}`;
 
-        axios.get(jsonWorks).then(posts => {
+        axios.get(jsonWorks).then(post => {
             this.setState({
-                posts: posts.data[0]
+                post: post.data[0]
             });
         });
     }
@@ -27,17 +27,14 @@ class PostView extends Component {
         };
     }
     render() {
-        let build;
-        if (this.state.post.title) {
-            build = (
-                <div>
-                    <h1>{this.state.post.title.rendered}</h1>
-                </div>
-            );
-        } else {
-            build = <div />;
-        }
-        return build;
+        const baseURL = "https://damienpierre.com";
+        return (
+            <div>
+                {this.state.post.acf.work_content.map(post => (
+                    <li>post</li>
+                ))}
+            </div>
+        );
     }
 }
 
